@@ -3,24 +3,6 @@
 
 char regNames[][2] = {"A", "B", "C", "D", "E", "F", "IP", "SP"};
 
-/*int program[] = {
-	PSH, 5,
-	PSH, 6,
-	SET, A, 10,
-	MOV, B, A,
-	LOG, B,
-	JMP, 25,
-	SET, A, 50,
-	PSH, 5,
-	PSH, 5,
-	PSH, 5,
-	PSH, 5,
-	LOG, A,
-	ADD,
-	POP,
-	HLT
-};*/
-
 int fetch() {
 	return program[ip];
 }
@@ -33,6 +15,11 @@ void eval(int instr) {
 		case PSH:
 			stack[++sp] = program[++ip];
 			break;
+		case PSHR: {
+			int reg = program[++ip];
+			stack[++sp] = registers[reg];
+			break;
+		}
 		case POP: {
 			int val = stack[sp--];
 			printf("Popped: %d\n", val);
@@ -47,8 +34,6 @@ void eval(int instr) {
 		case SET: {
 			int reg = program[++ip];
 			registers[reg] = program[++ip];;
-
-			printf("Reg %s: %d\n", regNames[reg], registers[reg]);
 			break;
 		}
 		case MOV: {
@@ -60,6 +45,11 @@ void eval(int instr) {
 		case LOG: {
 			int reg = program[++ip];
 			printf("Reg %s: %d\n", regNames[reg], registers[reg]);
+			break;
+		}
+		case PUTC: {
+			int reg = program[++ip];
+			printf("%c", registers[reg]);
 			break;
 		}
 		case JMP: {

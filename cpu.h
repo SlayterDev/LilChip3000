@@ -10,11 +10,13 @@
 
 typedef enum { 
 	PSH,
+	PSHR,
 	ADD,
 	POP,
 	SET,
 	MOV,
 	LOG,
+	PUTC,
 	JMP,
 	HLT,
 	NUM_INSTRUCTIONS

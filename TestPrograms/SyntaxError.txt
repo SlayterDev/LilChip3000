@@ -1,0 +1,4 @@
+PSH 5
+PSH 6
+PSH CAT
+HLT
