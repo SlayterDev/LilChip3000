@@ -8,6 +8,8 @@ int program[] = {
 	ADD,
 	POP,
 	SET, A, 10,
+	MOV, B, A,
+	LOG, B,
 	HLT
 };
 
@@ -38,6 +40,17 @@ void eval(int instr) {
 			int reg = program[++ip];
 			registers[reg] = program[++ip];;
 
+			printf("Reg %s: %d\n", regNames[reg], registers[reg]);
+			break;
+		}
+		case MOV: {
+			int dest = program[++ip];
+			int src = program[++ip];
+			registers[dest] = registers[src];
+			break;
+		}
+		case LOG: {
+			int reg = program[++ip];
 			printf("Reg %s: %d\n", regNames[reg], registers[reg]);
 			break;
 		}

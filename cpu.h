@@ -13,6 +13,8 @@ typedef enum {
 	ADD,
 	POP,
 	SET,
+	MOV,
+	LOG,
 	HLT,
 	NUM_INSTRUCTIONS
 } InstructionSet;
