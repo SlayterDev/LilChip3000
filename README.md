@@ -21,4 +21,46 @@ Compile the virtual machine using the provded makefile. You can then run your co
 
     ./LilChip3000 program.chip
 
+##### Hello World Program
+
+    SET A 10 ; \n
+    PSHR A
+    SET A 33 ; !
+    PSHR A
+    SET A 100 ; d
+    PSHR A
+    SET A 108 ; l
+    PSHR A
+    SET A 114 ; r
+    PSHR A
+    SET A 111 ; o
+    PSHR A
+    SET A 87  ; W
+    PSHR A
+    SET A 32  ; ' '
+    PSHR A
+    SET A 111 ; o
+    PSHR A
+    SET A 108 ; l
+    PSHR A
+    PSHR A
+    SET A 101 ; e
+    PSHR A
+    SET A 72  ; H
+    PSHR A
+    
+    SET B 13 ; Loop 13 times (i)
+    SET C 1  ; Decrement by 1 each time
+    
+    Loop: POPR A
+    	  PUTC A
+    	  PSHR C
+    	  PSHR B
+    	  SUB		; i--
+    	  POPR B
+    	  JNZ B Loop
+    
+    HLT
+
+
 For full documentation on the instruction set for the LilChip3000, please see the [wiki](https://github.com/SlayterDev/LilChip3000/wiki)
