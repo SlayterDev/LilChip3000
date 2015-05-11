@@ -1,6 +1,8 @@
 #ifndef CPU_H
 #define CPU_H
 
+#include "globals.h"
+
 #define STACK_SIZE 256
 
 #define ip (registers[IP])
@@ -20,12 +22,13 @@ typedef enum {
 	NUM_REGISTERS
 } Registers;
 
-char regNames[][2] = {"A", "B", "C", "D", "E", "F", "IP", "SP"};
-
 bool running;
 
 int stack[STACK_SIZE];
 
 int registers[NUM_REGISTERS];
+
+void initCPU();
+void runProgram();
 
 #endif
