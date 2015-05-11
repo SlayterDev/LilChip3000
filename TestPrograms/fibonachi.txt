@@ -1,0 +1,33 @@
+; Fibonacci sequence to 10 terms
+; A = Number of iterations
+; B = First
+; C = Second
+; D = Next
+; E = Loop Counter
+
+SET A 10
+SET B 0
+SET C 1
+SET E 0
+SET F 10 ; Newline
+
+MOV D E
+PUTD D
+PUTC F
+ADDI E 1
+MOV D E
+PUTD D
+PUTC F
+ADDI E 1
+
+Loop: PSHR B
+	  PSHR C
+	  ADD
+	  POPR D
+	  MOV B C
+	  MOV C D
+	  PUTD D
+	  PUTC F
+	  ADDI E 1
+	  JLT E A Loop
+	  HLT

@@ -2,7 +2,7 @@ import os
 import sys
 
 instructions = ["PSH", "PSHR", "ADD", "ADDI", "SUB", "SUBI", "POP", "POPR", 
-				"SET", "MOV", "LOG", "PUTC", "JMP", "JNZ", "HLT"]
+				"SET", "MOV", "LOG", "PUTC", "PUTD", "JMP", "JNZ", "JLT", "HLT"]
 registers = ["A", "B", "C", "D", "E", "F", "IP", "SP"]
 
 instructionInfo = {
@@ -18,8 +18,10 @@ instructionInfo = {
 "MOV": {"argc": 2,"regs": True},
 "LOG": {"argc": 1,"regs": True},
 "PUTC":{"argc": 1,"regs": True},
+"PUTD":{"argc": 1,"regs": True},
 "JMP": {"argc": 1,"regs": False},
 "JNZ": {"argc": 2,"regs": True},
+"JLT": {"argc": 3,"regs": True},
 "HLT": {"argc": 0,"regs": False},
 }
 
@@ -64,7 +66,15 @@ def verify_line(line, lineno):
 						argument = int(item)
 						continue
 					except ValueError:
-						reason = 'Argument 2 of' + items[0] + 'must be an interger.'
+						reason = 'Argument 2 of ' + items[0] + ' must be an interger.'
+						compile_error(lineno, line, reason)
+				elif items[0] == "JLT" and items.index(item) == 3:
+					# make sure its an integer
+					try:
+						argument = int(item)
+						continue
+					except ValueError:
+						reason = 'Argument 3 of ' + items[0] + ' must be an interger.'
 						compile_error(lineno, line, reason)
 
 				if not item in registers:

@@ -74,6 +74,11 @@ void eval(int instr) {
 			printf("%c", registers[reg]);
 			break;
 		}
+		case PUTD: {
+			int reg = program[++ip];
+			printf("%d", registers[reg]);
+			break;
+		}
 		case JMP: {
 			ip = program[++ip] - 1; // Subtract 1 because the ip 
 			break;					// increments after this
@@ -82,6 +87,15 @@ void eval(int instr) {
 			int reg = program[++ip];
 			ip++;
 			if (registers[reg] > 0) {
+				ip = program[ip] - 1;
+			}
+			break;
+		}
+		case JLT: {
+			int reg1 = program[++ip];
+			int reg2 = program[++ip];
+			ip++;
+			if (registers[reg1] < registers[reg2]) {
 				ip = program[ip] - 1;
 			}
 			break;
