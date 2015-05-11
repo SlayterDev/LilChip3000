@@ -119,6 +119,14 @@ def replace_lables(code):
 
 	return ' '.join(words)
 
+def strip_comments(code):
+	lines = code.split('\n')
+	
+	for i,line in enumerate(lines):
+		lines[i] = line.split(';')[0]
+
+	return '\n'.join(lines)
+
 def compile():
 	if len(sys.argv) < 2:
 		print 'Usage: python ' + sys.argv[0] + ' <filename> (outputName)'
@@ -127,6 +135,7 @@ def compile():
 	codeFile = open(sys.argv[1], 'r')
 
 	lines = codeFile.read()
+	lines = strip_comments(lines)
 	lines = replace_lables(lines)
 	lines = lines.split('\n')
 

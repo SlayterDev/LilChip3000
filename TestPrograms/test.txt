@@ -1,14 +1,14 @@
 SET A 26
 SET B 90
 SET D 0
-Block: SET C 1
+Block: SET C 1 ; We come back here
 	   SET E 64
 	   PUTC E
 	   SET E 10
 	   PUTC E
 	   JNZ D End
 
-Loop: PUTC B
+Loop: PUTC B ; Start of loop
 	  PSHR C
 	  PSHR A
 	  SUB
@@ -24,6 +24,6 @@ SET C 10
 PUTC C
 JNZ D Block	 
 
-End: SET B 10
+End: SET B 10 ; Jump back here
 	 PUTC B
 	 HLT
