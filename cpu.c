@@ -1,8 +1,9 @@
 #include "cpu.h"
+#include "fileOps.h"
 
 char regNames[][2] = {"A", "B", "C", "D", "E", "F", "IP", "SP"};
 
-int program[] = {
+/*int program[] = {
 	PSH, 5,
 	PSH, 6,
 	SET, A, 10,
@@ -18,7 +19,7 @@ int program[] = {
 	ADD,
 	POP,
 	HLT
-};
+};*/
 
 int fetch() {
 	return program[ip];
@@ -76,9 +77,14 @@ void initCPU() {
 	running = true;
 }
 
-void runProgram() {
+void runProgram(char *filename) {
+	program = readProgram(filename);
+
+	printf("Starting Program...\n\n");
 	while (running) {
 		eval(fetch());
 		ip++;
 	}
+
+	free(program);
 }

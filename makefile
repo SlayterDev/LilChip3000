@@ -1,4 +1,4 @@
-SOURCES := main.o cpu.o
+SOURCES := main.o cpu.o fileOps.o
 
 CFLAGS=-g -std=c11
 

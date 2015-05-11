@@ -31,6 +31,8 @@ int stack[STACK_SIZE];
 
 int registers[NUM_REGISTERS];
 
+int *program;
+
 void initCPU();
 void runProgram();
 

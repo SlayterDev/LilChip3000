@@ -32,3 +32,4 @@
 *.dSYM/
 
 LilChip3000
+*.chip

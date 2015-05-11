@@ -1,0 +1,4 @@
+SET A 10
+MOV B A
+LOG B
+HLT
