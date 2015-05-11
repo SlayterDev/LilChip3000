@@ -62,8 +62,8 @@ void eval(int instr) {
 			break;
 		}
 		case JMP: {
-			ip = program[++ip] - 1;
-			break;
+			ip = program[++ip] - 1; // Subtract 1 because the ip 
+			break;					// increments after this
 		}
 		default:
 			break;
