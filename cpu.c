@@ -37,10 +37,20 @@ void eval(int instr) {
 			stack[++sp] = a + b;
 			break;
 		}
+		case ADDI: {
+			int reg = program[++ip];
+			registers[reg] += program[++ip];
+			break;
+		}
 		case SUB: {
 			int a = stack[sp--];
 			int b = stack[sp--];
 			stack[++sp] = a - b;
+			break;
+		}
+		case SUBI: {
+			int reg = program[++ip];
+			registers[reg] -= program[++ip];
 			break;
 		}
 		case SET: {

@@ -1,14 +1,17 @@
 import os
 import sys
 
-instructions = ["PSH", "PSHR", "ADD", "SUB", "POP", "POPR", "SET", "MOV", "LOG", "PUTC", "JMP", "JNZ", "HLT"]
+instructions = ["PSH", "PSHR", "ADD", "ADDI", "SUB", "SUBI", "POP", "POPR", 
+				"SET", "MOV", "LOG", "PUTC", "JMP", "JNZ", "HLT"]
 registers = ["A", "B", "C", "D", "E", "F", "IP", "SP"]
 
 instructionInfo = {
 "PSH": {"argc": 1,"regs": False},
 "PSHR":{"argc": 1,"regs": True},
 "ADD": {"argc": 0,"regs": False},
+"ADDI":{"argc": 2,"regs": True},
 "SUB": {"argc": 0,"regs": False},
+"SUBI":{"argc": 2,"regs": True},
 "POP": {"argc": 0,"regs": False},
 "POPR":{"argc": 1,"regs": True},	
 "SET": {"argc": 2,"regs": True},
@@ -19,6 +22,8 @@ instructionInfo = {
 "JNZ": {"argc": 2,"regs": True},
 "HLT": {"argc": 0,"regs": False},
 }
+
+mixedInstructions = ["SET", "JNZ", "ADDI", "SUBI"]
 
 def compile_error(lineno, line, reason):
 	print '[-] SYNTAX ERROR: line ' + str(lineno)
@@ -52,8 +57,8 @@ def verify_line(line, lineno):
 				if items.index(item) == 0:
 					continue
 
-				# Check arg 2 of SET and JNZ
-				if (items[0] == 'SET' or items[0] == 'JNZ') and items.index(item) == 2:
+				# Check arg 2 of the mixed instructions
+				if items[0] in mixedInstructions and items.index(item) == 2:
 					# make sure its an integer
 					try:
 						argument = int(item)

@@ -33,3 +33,4 @@
 
 LilChip3000
 *.chip
+*.stackdump # thanks cygwin
