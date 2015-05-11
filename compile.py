@@ -77,6 +77,40 @@ def verify_line(line, lineno):
 					reason = 'Argument ' + str(items.index(item)) + ' of ' + items[0] + ' is not a valid integer.'
 					compile_error(lineno, line, reason)
 
+def replace_lables(code):
+	words = code.split()
+	indexes = [] # indices of replaced labels
+	for i in range(0, len(words)):
+		if i < len(words):
+			word = words[i]
+		else:
+			break
+
+		if ':' in word:
+			# trim ':'
+			words.remove(word)
+			word = word[:-1]
+
+			# update indexes
+			for j,idx in enumerate(indexes):
+				if i < j:
+					indexes[j] = idx - 1
+					words[idx-1] = str(idx - 1)
+
+			# replace all occurences
+			for item in words:
+				if item == word:
+					words[words.index(word)] = str(i)
+					indexes.append(i)
+
+	for i,word in enumerate(words):
+		# put the newlines back in
+		if word in instructions:
+			words[i] = '\n' + word
+
+
+	return ' '.join(words)
+
 def compile():
 	if len(sys.argv) < 2:
 		print 'Usage: python ' + sys.argv[0] + ' <filename> (outputName)'
@@ -84,7 +118,10 @@ def compile():
 
 	codeFile = open(sys.argv[1], 'r')
 
-	lines = codeFile.readlines()
+	lines = codeFile.read()
+	lines = replace_lables(lines)
+	lines = lines.split('\n')
+
 	compiledCode = []
 	haltFound = False
 	for line in lines:

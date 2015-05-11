@@ -1,18 +1,29 @@
 SET A 26
 SET B 90
-SET C 1
+SET D 0
+Block: SET C 1
+	   SET E 64
+	   PUTC E
+	   SET E 10
+	   PUTC E
+	   JNZ D End
 
-PUTC B
-PSHR C
-PSHR A
-SUB
-POPR A
-PSHR C
-PSHR B
-SUB
-POPR B
-JNZ A 9
+Loop: PUTC B
+	  PSHR C
+	  PSHR A
+	  SUB
+	  POPR A
+	  PSHR C
+	  PSHR B
+	  SUB
+	  POPR B
+	  JNZ A Loop
 
-SET B 10
-PUTC B
-HLT
+SET D 1
+SET C 10
+PUTC C
+JNZ D Block	 
+
+End: SET B 10
+	 PUTC B
+	 HLT
