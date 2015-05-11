@@ -87,6 +87,14 @@ def replace_lables(code):
 			break
 
 		if ':' in word:
+			# make sure label is unique
+			for j,thing in enumerate(words):
+				if thing == word and j != i:
+						print '[-] ERROR: Duplicate label'
+						print '[-] The label \'' + word + '\' has already been defined.'
+						print '\n[-] Compilation terminated'
+						exit(1)
+
 			# trim ':'
 			words.remove(word)
 			word = word[:-1]
