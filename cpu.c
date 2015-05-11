@@ -68,6 +68,14 @@ void eval(int instr) {
 			ip = program[++ip] - 1; // Subtract 1 because the ip 
 			break;					// increments after this
 		}
+		case JNZ: {
+			int reg = program[++ip];
+			ip++;
+			if (registers[reg] > 0) {
+				ip = program[ip] - 1;
+			}
+			break;
+		}
 		default:
 			break;
 	}

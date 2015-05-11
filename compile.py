@@ -1,7 +1,7 @@
 import os
 import sys
 
-instructions = ["PSH", "PSHR", "ADD", "SUB", "POP", "POPR", "SET", "MOV", "LOG", "PUTC", "JMP", "HLT"]
+instructions = ["PSH", "PSHR", "ADD", "SUB", "POP", "POPR", "SET", "MOV", "LOG", "PUTC", "JMP", "JNZ", "HLT"]
 registers = ["A", "B", "C", "D", "E", "F", "IP", "SP"]
 
 instructionInfo = {
@@ -16,6 +16,7 @@ instructionInfo = {
 "LOG": {"argc": 1,"regs": True},
 "PUTC":{"argc": 1,"regs": True},
 "JMP": {"argc": 1,"regs": False},
+"JNZ": {"argc": 2,"regs": True},
 "HLT": {"argc": 0,"regs": False},
 }
 
@@ -51,14 +52,14 @@ def verify_line(line, lineno):
 				if items.index(item) == 0:
 					continue
 
-				# Check arg 2 of SET
-				if items[0] == 'SET' and items.index(item) == 2:
+				# Check arg 2 of SET and JNZ
+				if (items[0] == 'SET' or items[0] == 'JNZ') and items.index(item) == 2:
 					# make sure its an integer
 					try:
 						argument = int(item)
 						continue
 					except ValueError:
-						reason = 'Argument 2 of SET must be an interger.'
+						reason = 'Argument 2 of' + items[0] + 'must be an interger.'
 						compile_error(lineno, line, reason)
 
 				if not item in registers:
@@ -89,6 +90,9 @@ def compile():
 	for line in lines:
 		items = line.split()
 		
+		if not items: # skip blank lines
+			continue
+
 		if items[0] in instructions:
 			compiledCode.append(instructions.index(items[0]))
 

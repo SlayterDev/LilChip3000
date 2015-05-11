@@ -20,6 +20,7 @@ typedef enum {
 	LOG,
 	PUTC,
 	JMP,
+	JNZ,
 	HLT,
 	NUM_INSTRUCTIONS
 } InstructionSet;
