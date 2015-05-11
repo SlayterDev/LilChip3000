@@ -25,10 +25,22 @@ void eval(int instr) {
 			printf("Popped: %d\n", val);
 			break;
 		}
+		case POPR: {
+			int val = stack[sp--];
+			int reg = program[++ip];
+			registers[reg] = val;
+			break;
+		}
 		case ADD: {
 			int a = stack[sp--];
 			int b = stack[sp--];
 			stack[++sp] = a + b;
+			break;
+		}
+		case SUB: {
+			int a = stack[sp--];
+			int b = stack[sp--];
+			stack[++sp] = a - b;
 			break;
 		}
 		case SET: {

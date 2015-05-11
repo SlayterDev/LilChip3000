@@ -1,14 +1,16 @@
 import os
 import sys
 
-instructions = ["PSH", "PSHR", "ADD", "POP", "SET", "MOV", "LOG", "PUTC", "JMP", "HLT"]
+instructions = ["PSH", "PSHR", "ADD", "SUB", "POP", "POPR", "SET", "MOV", "LOG", "PUTC", "JMP", "HLT"]
 registers = ["A", "B", "C", "D", "E", "F", "IP", "SP"]
 
 instructionInfo = {
 "PSH": {"argc": 1,"regs": False},
 "PSHR":{"argc": 1,"regs": True},
 "ADD": {"argc": 0,"regs": False},
-"POP": {"argc": 0,"regs": False},	
+"SUB": {"argc": 0,"regs": False},
+"POP": {"argc": 0,"regs": False},
+"POPR":{"argc": 1,"regs": True},	
 "SET": {"argc": 2,"regs": True},
 "MOV": {"argc": 2,"regs": True},
 "LOG": {"argc": 1,"regs": True},
