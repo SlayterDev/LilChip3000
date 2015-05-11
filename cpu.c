@@ -5,11 +5,18 @@ char regNames[][2] = {"A", "B", "C", "D", "E", "F", "IP", "SP"};
 int program[] = {
 	PSH, 5,
 	PSH, 6,
-	ADD,
-	POP,
 	SET, A, 10,
 	MOV, B, A,
 	LOG, B,
+	JMP, 25,
+	SET, A, 50,
+	PSH, 5,
+	PSH, 5,
+	PSH, 5,
+	PSH, 5,
+	LOG, A,
+	ADD,
+	POP,
 	HLT
 };
 
@@ -52,6 +59,10 @@ void eval(int instr) {
 		case LOG: {
 			int reg = program[++ip];
 			printf("Reg %s: %d\n", regNames[reg], registers[reg]);
+			break;
+		}
+		case JMP: {
+			ip = program[++ip] - 1;
 			break;
 		}
 		default:

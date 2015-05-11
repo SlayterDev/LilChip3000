@@ -15,6 +15,7 @@ typedef enum {
 	SET,
 	MOV,
 	LOG,
+	JMP,
 	HLT,
 	NUM_INSTRUCTIONS
 } InstructionSet;
