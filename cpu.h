@@ -9,22 +9,15 @@
 #define sp (registers[SP])
 
 typedef enum { 
-	PSH,
-	PSHR,
-	ADD,
-	ADDI,
-	SUB,
-	SUBI,
-	POP,
-	POPR,
+	PSH,PSHR,
+	ADD,ADDI,
+	SUB,SUBI,
+	POP,POPR,
 	SET,
 	MOV,
 	LOG,
-	PUTC,
-	PUTD,
-	JMP,
-	JNZ,
-	JLT,
+	PUTC,PUTD,
+	JMP,JNZ,JLT,JGT,JRE,
 	HLT,
 	NUM_INSTRUCTIONS
 } InstructionSet;

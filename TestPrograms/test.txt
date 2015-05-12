@@ -6,7 +6,8 @@ Block: SET C 1 ; We come back here
 	   PUTC E
 	   SET E 10
 	   PUTC E
-	   JNZ D End
+	   SET D 10
+	   JRE D E End
 
 Loop: PUTC B ; Start of loop
 	  PSHR C

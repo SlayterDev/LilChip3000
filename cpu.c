@@ -100,6 +100,24 @@ void eval(int instr) {
 			}
 			break;
 		}
+		case JGT: {
+			int reg1 = program[++ip];
+			int reg2 = program[++ip];
+			ip++;
+			if (registers[reg1] > registers[reg2]) {
+				ip = program[ip] - 1;
+			}
+			break;
+		}
+		case JRE: {
+			int reg1 = program[++ip];
+			int reg2 = program[++ip];
+			ip++;
+			if (registers[reg1] == registers[reg2]) {
+				ip = program[ip] - 1;
+			}
+			break;
+		}
 		default:
 			break;
 	}
