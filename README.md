@@ -23,31 +23,19 @@ Compile the virtual machine using the provded makefile. You can then run your co
 
 ##### Hello World Program
 
-    SET A 10 ; \n
-    PSHR A
-    SET A 33 ; !
-    PSHR A
-    SET A 100 ; d
-    PSHR A
-    SET A 108 ; l
-    PSHR A
-    SET A 114 ; r
-    PSHR A
-    SET A 111 ; o
-    PSHR A
-    SET A 87  ; W
-    PSHR A
-    SET A 32  ; ' '
-    PSHR A
-    SET A 111 ; o
-    PSHR A
-    SET A 108 ; l
-    PSHR A
-    PSHR A
-    SET A 101 ; e
-    PSHR A
-    SET A 72  ; H
-    PSHR A
+    PSH 10  ; \n
+    PSH 33  ; !
+    PSH 100 ; d
+    PSH 108 ; l
+    PSH 114 ; r
+    PSH 111 ; o
+    PSH 87  ; W
+    PSH 32  ; ' '
+    PSH 111 ; o
+    PSH 108 ; l
+    PSH 108 ; l
+    PSH 101 ; e
+    PSH 72  ; H
     
     SET B 13 ; Loop 13 times (i)
 
