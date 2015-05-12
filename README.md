@@ -2,7 +2,7 @@
 LilChip3000 is a C based virtual machine. It is currently very limited and uses a custom instruction set. It has 6 general purpose registers as well as the instrustion pointer and stack pointer registers. The "compiler" is written in python. It takes the assembly like syntax of the source code and translates the instructions and registers into their corresponding integers.
 
 ### Example
-The virtual machine uses an assembly like syntax to write programs:
+The virtual machine uses an assembly like syntax (non case sensitive) to write programs:
 
     PSH 5 ; Push 5 onto the stack
     PSH 6 ; Push 6 onto the stack
