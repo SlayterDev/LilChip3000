@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import os
 import sys
 
@@ -132,10 +134,10 @@ def replace_lables(code):
 			# make sure label is unique
 			for j,thing in enumerate(words):
 				if thing == word and j != i:
-						print '[-] ERROR: Duplicate label'
-						print '[-] The label \'' + word + '\' has already been defined.'
-						print '\n[-] Compilation terminated'
-						exit(1)
+					print '[-] ERROR: Duplicate label'
+					print '[-] The label \'' + word + '\' has already been defined.'
+					print '\n[-] Compilation terminated'
+					exit(1)
 
 			# trim ':'
 			words.remove(word)
@@ -180,6 +182,8 @@ def compile():
 	"""
 	if len(sys.argv) < 2:
 		print 'Usage: python ' + sys.argv[0] + ' <filename> (outputName)'
+		print '\n<filename>: The source file to compile'
+		print '(outputName): (optional) The name of the file to output. \'.chip\' will automatically be added'
 		exit(0)
 
 	codeFile = open(sys.argv[1], 'r')
