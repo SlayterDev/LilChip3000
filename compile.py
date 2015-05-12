@@ -142,7 +142,7 @@ def strip_comments(code):
 	lines = code.split('\n')
 	
 	for i,line in enumerate(lines):
-		lines[i] = line.split(';')[0]
+		lines[i] = line.split(';')[0].upper() # strip the comments and convert to uppercase
 
 	return '\n'.join(lines)
 
