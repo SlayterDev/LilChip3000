@@ -32,6 +32,13 @@ mixedInstructions = ["SET", "JNZ", "ADDI", "SUBI"]
 tripleInstructions = ["JLT", "JGT", "JRE"]
 
 def compile_error(lineno, line, reason):
+	""" 
+	compiler_error: Displays a compiler error and stops compilation
+
+	lineno - The line number the error occured on
+	line   - The string of the line
+	reason - The reason for the error
+	"""
 	print '[-] SYNTAX ERROR: line ' + str(lineno)
 	print '\n\t' + str(line) + '\n'
 	print '[-] ' + reason
@@ -39,6 +46,10 @@ def compile_error(lineno, line, reason):
 	exit(1)
 
 def halt_not_found():
+	"""
+	halt_not_found: Displays a compiler error and stops compilation
+	when a HLT instruction is not found
+	"""
 	print '[-] ERROR: Halt not found'
 	print '\n[-] This program does not contain the \'HLT\' instruction and will not terminate.'
 	print '[-] Please add a \'HLT\' instruction to the program.'
@@ -46,6 +57,12 @@ def halt_not_found():
 	exit(1)
 
 def verify_line(line, lineno):
+	"""
+	verify_line: Verify the syntax and argument usage of a line is valid
+
+	line   - The line to verify
+	lineno - The number of the line being verified
+	"""
 	items = line.split()
 	info = instructionInfo[items[0]]
 
@@ -97,6 +114,12 @@ def verify_line(line, lineno):
 					compile_error(lineno, line, reason)
 
 def replace_lables(code):
+	"""
+	replace_lables: Replace the labels in the code with their address
+	equivalents
+
+	code - The source code as a string
+	"""
 	words = code.split()
 	indexes = [] # indices of replaced labels
 	for i in range(0, len(words)):
@@ -139,6 +162,11 @@ def replace_lables(code):
 	return ' '.join(words)
 
 def strip_comments(code):
+	"""
+	strip_comments: Remove the comments from the code
+
+	code - The source code as a string
+	"""
 	lines = code.split('\n')
 	
 	for i,line in enumerate(lines):
@@ -147,6 +175,9 @@ def strip_comments(code):
 	return '\n'.join(lines)
 
 def compile():
+	"""
+	compile: The main function of the program
+	"""
 	if len(sys.argv) < 2:
 		print 'Usage: python ' + sys.argv[0] + ' <filename> (outputName)'
 		exit(0)

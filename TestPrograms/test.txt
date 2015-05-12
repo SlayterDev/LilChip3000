@@ -25,6 +25,7 @@ SET C 10
 PUTC C
 JNZ D Block	 
 
-End: SET B 10 ; Jump back here
-	 PUTC B
-	 HLT
+End: 
+	SET B 10 ; Jump back here
+	PUTC B
+	HLT
