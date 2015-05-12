@@ -14,7 +14,7 @@ Use the `compile.py` script to "compile" the code
 
     python compile.py myProgram.txt
 
-You can specify an putput file name as the second argument. Otherwise, your program will be saved as `program.chip`. We call this a chip file.
+You can specify an output file name as the second argument. Otherwise, your program will be saved as `program.chip`. We call this a chip file.
 
 ##### Running
 Compile the virtual machine using the provded makefile. You can then run your compiled program using the following:
