@@ -3,6 +3,15 @@
 
 char regNames[][2] = {"A", "B", "C", "D", "E", "F", "IP", "SP"};
 
+/* 
+ Set the lr to the instruction after the current instruction
+ offset should be equal to the number of arguments in the 
+ current function
+*/
+void setlr(int offset) {
+	lr = ip + offset;
+}
+
 int fetch() {
 	return program[ip];
 }
@@ -80,10 +89,12 @@ void eval(int instr) {
 			break;
 		}
 		case JMP: {
-			ip = program[++ip] - 1; // Subtract 1 because the ip 
+			setlr(1);
+			ip = program[++ip] - 1; // Subtract 1 because the ip  
 			break;					// increments after this
 		}
 		case JNZ: {
+			setlr(2);
 			int reg = program[++ip];
 			ip++;
 			if (registers[reg] > 0) {
@@ -92,6 +103,7 @@ void eval(int instr) {
 			break;
 		}
 		case JLT: {
+			setlr(3);
 			int reg1 = program[++ip];
 			int reg2 = program[++ip];
 			ip++;
@@ -101,6 +113,7 @@ void eval(int instr) {
 			break;
 		}
 		case JGT: {
+			setlr(3);
 			int reg1 = program[++ip];
 			int reg2 = program[++ip];
 			ip++;
@@ -110,6 +123,7 @@ void eval(int instr) {
 			break;
 		}
 		case JRE: {
+			setlr(3);
 			int reg1 = program[++ip];
 			int reg2 = program[++ip];
 			ip++;

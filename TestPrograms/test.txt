@@ -1,31 +1,28 @@
-SET A 26
-SET B 90
-SET D 0
-Block: SET C 1 ; We come back here
-	   SET E 64
-	   PUTC E
-	   SET E 10
-	   PUTC E
-	   SET D 10
-	   JRE D E End
+JMP Hello
+JMP Hello
+HLT
 
-Loop: PUTC B ; Start of loop
-	  PSHR C
-	  PSHR A
-	  SUB
-	  POPR A
-	  PSHR C
-	  PSHR B
-	  SUB
-	  POPR B
-	  JNZ A Loop
+Hello:
+PSH 10  ; \n
+PSH 33  ; !
+PSH 100 ; d
+PSH 108 ; l
+PSH 114 ; r
+PSH 111 ; o
+PSH 87  ; W
+PSH 32  ; ' '
+PSH 111 ; o
+PSH 108 ; l
+PSH 108 ; l
+PSH 101 ; e
+PSH 72  ; H
 
-SET D 1
-SET C 10
-PUTC C
-JNZ D Block	 
-
-End: 
-	SET B 10 ; Jump back here
-	PUTC B
-	HLT
+SET B 13 ; Loop 13 times (i)
+MOV C LR ; Store the LR
+Loop: 
+	POPR A
+	PUTC A
+	SUBI B 1 ; i--
+	JNZ B Loop
+MOV LR C ; Restore LR
+MOV IP LR

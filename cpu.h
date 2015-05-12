@@ -7,6 +7,7 @@
 
 #define ip (registers[IP])
 #define sp (registers[SP])
+#define lr (registers[LR])
 
 typedef enum { 
 	PSH,PSHR,
@@ -23,7 +24,7 @@ typedef enum {
 } InstructionSet;
 
 typedef enum {
-	A, B, C, D, E, F, IP, SP,
+	A, B, C, D, E, F, IP, SP, LR,
 	NUM_REGISTERS
 } Registers;
 
