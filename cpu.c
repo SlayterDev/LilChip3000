@@ -22,6 +22,12 @@ int fetch() {
 	return program[ip];
 }
 
+void fatalError(const char *message) {
+	printf("FATAL: %s\n", message);
+	printf("Terminating...\n");
+	free(program);
+}
+
 void eval(int instr) {
 	switch (instr) {
 		case HLT:
@@ -147,6 +153,22 @@ void eval(int instr) {
 			}
 			break;
 		}
+		case LDA: {
+			int reg = program[++ip];
+			registers[reg] = program[++ip];
+			break;
+		}
+		case PUTS: {
+			int reg = program[++ip];
+			int val = registers[reg];
+
+			if (val >= dataCount) {
+				fatalError("This data item does not exist.");
+			}
+
+			printf("%s\n", (char *)dataSection[val]->data);
+			break;
+		}
 		default:
 			break;
 	}
@@ -155,6 +177,7 @@ void eval(int instr) {
 void initCPU() {
 	ip = 0;
 	sp = -1;
+	dataCount = 0;
 	running = true;
 }
 

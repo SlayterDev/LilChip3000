@@ -17,8 +17,9 @@ typedef enum {
 	SET,
 	MOV,
 	LOG,
-	PUTC,PUTD,
+	PUTC,PUTD,PUTS,
 	JMP,JNZ,JLT,JGT,JRE,
+	LDA,
 	HLT,
 	NUM_INSTRUCTIONS
 } InstructionSet;
@@ -37,6 +38,9 @@ int stack[STACK_SIZE];
 int registers[NUM_REGISTERS];
 
 int *program;
+
+DataEntry *dataSection[100];
+int dataCount;
 
 void initCPU();
 void runProgram();

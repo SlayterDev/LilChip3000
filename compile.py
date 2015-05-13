@@ -4,8 +4,8 @@ import os
 import sys
 
 instructions = ["PSH", "PSHR", "ADD", "ADDI", "SUB", "SUBI", "POP", "POPR", 
-				"SET", "MOV", "LOG", "PUTC", "PUTD", 
-				"JMP", "JNZ", "JLT", "JGT", "JRE", "HLT"]
+				"SET", "MOV", "LOG", "PUTC", "PUTD", "PUTS", 
+				"JMP", "JNZ", "JLT", "JGT", "JRE", "LDA", "HLT"]
 registers = ["A", "B", "C", "D", "E", "F", "S0", "S1", "S2", "IP", "SP", "LR"]
 
 instructionInfo = {
@@ -22,16 +22,21 @@ instructionInfo = {
 "LOG": {"argc": 1,"regs": True},
 "PUTC":{"argc": 1,"regs": True},
 "PUTD":{"argc": 1,"regs": True},
+"PUTS":{"argc": 1,"regs": True},
 "JMP": {"argc": 1,"regs": False},
 "JNZ": {"argc": 2,"regs": True},
 "JLT": {"argc": 3,"regs": True},
 "JGT": {"argc": 3,"regs": True},
 "JRE": {"argc": 3,"regs": True},
+"LDA": {"argc": 2,"regs": True},
 "HLT": {"argc": 0,"regs": False},
 }
 
 mixedInstructions = ["SET", "JNZ", "ADDI", "SUBI"]
 tripleInstructions = ["JLT", "JGT", "JRE"]
+
+dataTypes = ["INT", "STRING"]
+dataItems = []
 
 def compile_error(lineno, line, reason):
 	""" 
@@ -99,6 +104,8 @@ def verify_line(line, lineno):
 					except ValueError:
 						reason = 'Argument 3 of ' + items[0] + ' must be an interger.'
 						compile_error(lineno, line, reason)
+				elif items[0] == "LDA" and items.index(item) == 2:
+					continue
 
 				if not item in registers:
 					reason = 'Argument ' + str(items.index(item)) + ' of ' + items[0] + ' is not a valid register.'
@@ -163,6 +170,59 @@ def replace_lables(code):
 
 	return ' '.join(words)
 
+def try_data_section(code):
+	lines = code.split('\n')
+
+	close_block = False
+	size = 0
+	if '====' in lines[0]:
+		for i,line in enumerate(lines):
+			if i == 0:
+				continue
+
+			if '====' in line:
+				dataSectionPresent = True
+				close_block = True
+				size = i
+				break
+
+			lineCpy = line.split()
+
+			if not lineCpy:
+				continue
+
+			dataType = lineCpy[0]
+			if not dataType.upper() in dataTypes:
+				reason = dataType + ' is not a valid type'
+				compile_error(lines.index(line)+1, line, reason)
+
+			try:
+				dataName = lineCpy[1]
+			except e:
+				reason = 'Invald data declaration syntax.\nSyntax: <type> <name> <data>'
+				compile_error(lines.index(line)+1, line, reason)
+
+			offset = 2 + len(dataType) + len(dataName)
+			data = line[offset:]
+
+			if data is None:
+				reason = 'No data provided for data entry'
+				compile_error(lines.index(line)+1, line, reason)
+
+			if dataType.upper() == "INT":
+				data = data.split()
+				data = ''.join(data)
+
+			lines[i] = str(dataTypes.index(dataType.upper())) + ' ' + dataName.upper() + ' ' + data
+			dataItems.append(dataName.upper())
+
+		if not close_block:
+			compile_error(0, lines[0], 'No closing block found for data section.')
+
+		return True,size,'\n'.join(lines)
+	else:
+		return False,0,code
+
 def strip_comments(code):
 	"""
 	strip_comments: Remove the comments from the code
@@ -189,6 +249,16 @@ def compile():
 	codeFile = open(sys.argv[1], 'r')
 
 	lines = codeFile.read()
+	
+	present,size,lines = try_data_section(lines)
+
+	sections = lines
+	if present == True:
+		sections = lines.split('\n')
+		lines = ''
+		for i in range(size+1, len(sections)):
+			lines += sections[i] + '\n'
+
 	lines = strip_comments(lines)
 	lines = replace_lables(lines)
 	lines = lines.split('\n')
@@ -211,7 +281,9 @@ def compile():
 					continue					
 
 				if item in registers:
-						argument = registers.index(item)
+					argument = registers.index(item)
+				elif items[0] == "LDA" and item in dataItems:
+					argument = dataItems.index(item)
 				else:
 					try:
 						argument = int(item)
@@ -237,6 +309,10 @@ def compile():
 		outputName = 'program.chip'
 
 	outputFile = open(outputName, 'w')
+
+	for i in range(0, size+1):
+		outputFile.write("%s\n" % sections[i])
+
 	for item in compiledCode:
 		outputFile.write("%s " % item)
 

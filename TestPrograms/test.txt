@@ -1,8 +1,18 @@
-JMP Hello
-JMP Hello
+====
+string hello "Hello, World"
+string other "Winter is coming!"
+int array {1, 2, 3, 4, 5}
+====
+
+LDA A hello
+LDA B other
+PUTS A
+PUTS B
+JMP PrtHello
+JMP PrtHello
 HLT
 
-Hello:
+PrtHello:
 PSH 10  ; \n
 PSH 33  ; !
 PSH 100 ; d
