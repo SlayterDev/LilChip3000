@@ -4,11 +4,15 @@ string other "Winter is coming!"
 int array {1, 2, 3, 4, 5}
 ====
 
-JMP Hello
-JMP Hello
+LDA A hello
+LDA B other
+PUTS A
+PUTS B
+JMP PrtHello
+JMP PrtHello
 HLT
 
-Hello:
+PrtHello:
 PSH 10  ; \n
 PSH 33  ; !
 PSH 100 ; d

@@ -4,8 +4,8 @@ import os
 import sys
 
 instructions = ["PSH", "PSHR", "ADD", "ADDI", "SUB", "SUBI", "POP", "POPR", 
-				"SET", "MOV", "LOG", "PUTC", "PUTD", 
-				"JMP", "JNZ", "JLT", "JGT", "JRE", "HLT"]
+				"SET", "MOV", "LOG", "PUTC", "PUTD", "PUTS", 
+				"JMP", "JNZ", "JLT", "JGT", "JRE", "LDA", "HLT"]
 registers = ["A", "B", "C", "D", "E", "F", "S0", "S1", "S2", "IP", "SP", "LR"]
 
 instructionInfo = {
@@ -22,11 +22,13 @@ instructionInfo = {
 "LOG": {"argc": 1,"regs": True},
 "PUTC":{"argc": 1,"regs": True},
 "PUTD":{"argc": 1,"regs": True},
+"PUTS":{"argc": 1,"regs": True},
 "JMP": {"argc": 1,"regs": False},
 "JNZ": {"argc": 2,"regs": True},
 "JLT": {"argc": 3,"regs": True},
 "JGT": {"argc": 3,"regs": True},
 "JRE": {"argc": 3,"regs": True},
+"LDA": {"argc": 2,"regs": True},
 "HLT": {"argc": 0,"regs": False},
 }
 
@@ -34,8 +36,7 @@ mixedInstructions = ["SET", "JNZ", "ADDI", "SUBI"]
 tripleInstructions = ["JLT", "JGT", "JRE"]
 
 dataTypes = ["INT", "STRING"]
-dataSectionPresent = False
-dataSectionSize = 0;
+dataItems = []
 
 def compile_error(lineno, line, reason):
 	""" 
@@ -103,6 +104,8 @@ def verify_line(line, lineno):
 					except ValueError:
 						reason = 'Argument 3 of ' + items[0] + ' must be an interger.'
 						compile_error(lineno, line, reason)
+				elif items[0] == "LDA" and items.index(item) == 2:
+					continue
 
 				if not item in registers:
 					reason = 'Argument ' + str(items.index(item)) + ' of ' + items[0] + ' is not a valid register.'
@@ -211,6 +214,7 @@ def try_data_section(code):
 				data = ''.join(data)
 
 			lines[i] = str(dataTypes.index(dataType.upper())) + ' ' + dataName.upper() + ' ' + data
+			dataItems.append(dataName.upper())
 
 		if not close_block:
 			compile_error(0, lines[0], 'No closing block found for data section.')
@@ -277,7 +281,9 @@ def compile():
 					continue					
 
 				if item in registers:
-						argument = registers.index(item)
+					argument = registers.index(item)
+				elif items[0] == "LDA" and item in dataItems:
+					argument = dataItems.index(item)
 				else:
 					try:
 						argument = int(item)

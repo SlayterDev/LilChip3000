@@ -17,8 +17,9 @@ typedef enum {
 	SET,
 	MOV,
 	LOG,
-	PUTC,PUTD,
+	PUTC,PUTD,PUTS,
 	JMP,JNZ,JLT,JGT,JRE,
+	LDA,
 	HLT,
 	NUM_INSTRUCTIONS
 } InstructionSet;
