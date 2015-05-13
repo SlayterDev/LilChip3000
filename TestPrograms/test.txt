@@ -1,3 +1,8 @@
+====
+string hello "Hello, World"
+string other "Winter is coming!"
+====
+
 JMP Hello
 JMP Hello
 HLT

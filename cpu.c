@@ -155,6 +155,7 @@ void eval(int instr) {
 void initCPU() {
 	ip = 0;
 	sp = -1;
+	dataCount = 0;
 	running = true;
 }
 

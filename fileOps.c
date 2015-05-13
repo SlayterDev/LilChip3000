@@ -1,4 +1,5 @@
 #include "fileOps.h"
+#include "datasection.h"
 
 int *readProgram(char *filename) {
 	FILE *f = fopen(filename, "r");
@@ -7,12 +8,17 @@ int *readProgram(char *filename) {
 		exit(1);
 	}
 
+	parseDataSection(f);
+
+	int pos = ftell(f);
+
 	int input, count = 0;
 	while (fscanf(f, "%d", &input) != EOF)
 		count++;
 
 	int *code = (int *)malloc(sizeof(int)*count);
-	rewind(f);
+	//rewind(f);
+	fseek(f, pos, SEEK_SET);
 	count = 0;
 	while (fscanf(f, "%d", &input) != EOF) {
 		code[count] = input;

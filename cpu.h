@@ -38,6 +38,9 @@ int registers[NUM_REGISTERS];
 
 int *program;
 
+DataEntry *dataSection[100];
+int dataCount;
+
 void initCPU();
 void runProgram();
 
