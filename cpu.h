@@ -24,7 +24,9 @@ typedef enum {
 } InstructionSet;
 
 typedef enum {
-	A, B, C, D, E, F, IP, SP, LR,
+	A, B, C, D, E, F,
+	S0, S1, S2,
+	IP, SP, LR,
 	NUM_REGISTERS
 } Registers;
 

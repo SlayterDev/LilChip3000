@@ -11,14 +11,12 @@ SET C 1
 SET E 0
 SET F 10 ; Newline
 
-MOV D E
-PUTD D
-PUTC F
-ADDI E 1
-MOV D E
-PUTD D
-PUTC F
-ADDI E 1
+MiniLoop: SET S0 2
+		  MOV D E
+		  PUTD D
+		  PUTC F
+		  ADDI E 1
+		  JLT E S0 MiniLoop
 
 Loop: PSHR B
 	  PSHR C

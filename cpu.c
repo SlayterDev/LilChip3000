@@ -8,8 +8,14 @@ char regNames[][2] = {"A", "B", "C", "D", "E", "F", "IP", "SP"};
  offset should be equal to the number of arguments in the 
  current function
 */
-void setlr(int offset) {
-	lr = ip + offset;
+void setlr(int ipRef, int offset) {
+	lr = ipRef + offset;
+}
+
+void clearScratch() {
+	registers[S0] = 0;
+	registers[S1] = 0;
+	registers[S2] = 3;
 }
 
 int fetch() {
@@ -89,46 +95,55 @@ void eval(int instr) {
 			break;
 		}
 		case JMP: {
-			setlr(1);
+			setlr(ip, 1);
 			ip = program[++ip] - 1; // Subtract 1 because the ip  
-			break;					// increments after this
+			clearScratch();			// increments after this
+			break;
 		}
 		case JNZ: {
-			setlr(2);
+			int ipref = ip;
 			int reg = program[++ip];
 			ip++;
 			if (registers[reg] > 0) {
+				setlr(ipref, 2);
 				ip = program[ip] - 1;
+				clearScratch();
 			}
 			break;
 		}
 		case JLT: {
-			setlr(3);
+			int ipref = ip;
 			int reg1 = program[++ip];
 			int reg2 = program[++ip];
 			ip++;
 			if (registers[reg1] < registers[reg2]) {
+				setlr(ipref, 3);
 				ip = program[ip] - 1;
+				clearScratch();
 			}
 			break;
 		}
 		case JGT: {
-			setlr(3);
+			int ipref = ip;
 			int reg1 = program[++ip];
 			int reg2 = program[++ip];
 			ip++;
 			if (registers[reg1] > registers[reg2]) {
+				setlr(ipref, 3);
 				ip = program[ip] - 1;
+				clearScratch();
 			}
 			break;
 		}
 		case JRE: {
-			setlr(3);
+			int ipref = ip;
 			int reg1 = program[++ip];
 			int reg2 = program[++ip];
 			ip++;
 			if (registers[reg1] == registers[reg2]) {
+				setlr(ipref, 3);
 				ip = program[ip] - 1;
+				clearScratch();
 			}
 			break;
 		}

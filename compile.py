@@ -6,7 +6,7 @@ import sys
 instructions = ["PSH", "PSHR", "ADD", "ADDI", "SUB", "SUBI", "POP", "POPR", 
 				"SET", "MOV", "LOG", "PUTC", "PUTD", 
 				"JMP", "JNZ", "JLT", "JGT", "JRE", "HLT"]
-registers = ["A", "B", "C", "D", "E", "F", "IP", "SP", "LR"]
+registers = ["A", "B", "C", "D", "E", "F", "S0", "S1", "S2", "IP", "SP", "LR"]
 
 instructionInfo = {
 "PSH": {"argc": 1,"regs": False},
