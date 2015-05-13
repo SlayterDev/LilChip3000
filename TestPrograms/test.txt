@@ -1,6 +1,7 @@
 ====
 string hello "Hello, World"
 string other "Winter is coming!"
+int array {1, 2, 3, 4, 5}
 ====
 
 JMP Hello

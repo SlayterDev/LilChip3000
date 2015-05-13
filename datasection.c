@@ -29,7 +29,7 @@ void *getIntType(char *buffer, DataEntry *entry) {
 		}
 	}
 
-	entry->elementCount = elemCount;
+	entry->numElements = elemCount;
 
 	return (void *)data;
 }
@@ -42,7 +42,7 @@ void *getStringType(char *buffer, DataEntry *entry) {
 	char *data = (char *)malloc(strlen(buffer)+1);
 	strcpy((char *)data, buffer);
 
-	entry->elementCount = 1;
+	entry->numElements = 1;
 
 	return (void *)data;
 }
@@ -52,6 +52,21 @@ void dumpDataSection() {
 		switch (dataSection[i]->type) {
 			case STRING:
 				printf("Data %d: %s %s\n", i, dataSection[i]->name, (char *)dataSection[i]->data);
+				break;
+			case INT:
+				printf("Data %d: %s {", i, dataSection[i]->name);
+
+				int count = dataSection[i]->numElements;
+				int *array = (int *)dataSection[i]->data;
+				for (int j = 0; j < count; j++) {
+					printf("%d", array[j]);
+
+					if (j < count-1)
+						printf(", ");
+					else
+						printf("}\n");
+				}
+
 				break;
 		}
 	}
@@ -127,7 +142,6 @@ void parseDataSection(FILE *f) {
 		free(tempBuffer);
 
 	} while (strcmp(buffer, "===="));
-	printf("End of loop!\n");
-
-	dumpDataSection();
+	
+	//dumpDataSection();
 }

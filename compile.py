@@ -174,8 +174,6 @@ def try_data_section(code):
 	size = 0
 	if '====' in lines[0]:
 		for i,line in enumerate(lines):
-			print 'Line ' + str(i+1) + ': ' + line
-
 			if i == 0:
 				continue
 
@@ -256,7 +254,7 @@ def compile():
 		lines = ''
 		for i in range(size+1, len(sections)):
 			lines += sections[i] + '\n'
-			
+
 	lines = strip_comments(lines)
 	lines = replace_lables(lines)
 	lines = lines.split('\n')
