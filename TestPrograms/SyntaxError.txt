@@ -1,3 +1,8 @@
+======
+string hello "Hello, World!"
+string Hello "hello"
+======
+
 PSH 5
 PSH 6
 Loop: PSH 5

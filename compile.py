@@ -213,6 +213,10 @@ def try_data_section(code):
 				data = data.split()
 				data = ''.join(data)
 
+			if dataName.upper() in dataItems:
+				reason = 'This data item has already been declared'
+				compile_error(lines.index(line)+1, line, reason)
+
 			lines[i] = str(dataTypes.index(dataType.upper())) + ' ' + dataName.upper() + ' ' + data
 			dataItems.append(dataName.upper())
 
