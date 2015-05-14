@@ -46,5 +46,14 @@ Compile the virtual machine using the provded makefile. You can then run your co
     
     HLT ; Goodbye...
 
+or...
 
+    ====
+    string hello "Hello, World!"
+    ====
+    
+    LDA A hello
+    PUTS A
+    HLT
+    
 For full documentation on the instruction set for the LilChip3000, please see the [wiki](https://github.com/SlayterDev/LilChip3000/wiki)
