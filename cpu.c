@@ -166,7 +166,7 @@ void eval(int instr) {
 				fatalError("This data item does not exist.");
 			}
 
-			printf("%s\n", (char *)dataSection[val]->data);
+			printf("%s", (char *)dataSection[val]->data);
 			break;
 		}
 		default:
