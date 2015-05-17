@@ -34,10 +34,48 @@ void *getIntType(char *buffer, DataEntry *entry) {
 	return (void *)data;
 }
 
+// Because the compiler gives us the escape characters in the string,
+// We need to manually put them into the buffer
+void processEscapeChars(char *buffer) {
+	for (int i = 0; i < strlen(buffer); i++) {
+		if (buffer[i] == '\\') {
+			switch (buffer[i+1]) {
+				case 'n':
+					buffer[i] = '\n';
+					break;
+				case '\"':
+					buffer[i] = '\"';
+					break;
+				case '\'':
+					buffer[i] = '\'';
+					break;
+				case '\\':
+					buffer[i] = '\\';
+					break;
+				case 't':
+					buffer[i] = '\t';
+					break;
+				case 'r':
+					buffer[i] = '\r';
+					break;
+				default:
+					break;
+			}
+
+			// shift the rest of the string
+			for (int j = i+1; j < strlen(buffer); j++) {
+				buffer[j] = buffer[j+1];
+			}
+		}
+	}
+}
+
 void *getStringType(char *buffer, DataEntry *entry) {
 	// Trim the quotes
 	buffer = buffer + 1;
-	buffer[strlen(buffer)-2] = '\0';
+	buffer[strlen(buffer)-1] = '\0';
+
+	processEscapeChars(buffer);
 
 	char *data = (char *)malloc(strlen(buffer)+1);
 	strcpy((char *)data, buffer);
