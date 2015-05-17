@@ -49,7 +49,7 @@ Compile the virtual machine using the provded makefile. You can then run your co
 or...
 
     ====
-    string hello "Hello, World!"
+    string hello "Hello, World!\n"
     ====
     
     LDA A hello
