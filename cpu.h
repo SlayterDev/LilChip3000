@@ -18,6 +18,7 @@ typedef enum {
 	POP,POPR,
 	SET,
 	MOV,
+	SRL,SRR,
 	LOG,
 	PUTC,PUTD,PUTS,
 	JMP,JNZ,JLT,JGT,JRE,

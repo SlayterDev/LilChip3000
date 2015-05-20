@@ -107,6 +107,16 @@ void eval(int instr) {
 			registers[dest] = registers[src];
 			break;
 		}
+		case SRL: {
+			int reg = program[++ip];
+			registers[reg] <<= program[++ip];
+			break;
+		}
+		case SRR: {
+			int reg = program[++ip];
+			registers[reg] >>= program[++ip];
+			break;
+		}
 		case LOG: {
 			int reg = program[++ip];
 			printf("Reg %s: %d\n", regNames[reg], registers[reg]);

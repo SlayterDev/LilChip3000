@@ -1,20 +1,11 @@
-PSH 5
-PSH 5
-MUL
-POPR A
-PUTD A
-SET B 10
-PUTC B
-MULI A 5
-PUTD A
-PUTC B
-PSH 5
-PSH 10
-DIV
-POPR A
-PUTD A
-PUTC B
-DIVI A 2
-PUTD A
-PUTC B
+set a 1
+set b 10
+putd a
+putc b
+srl a 2
+putd a
+putc b
+srr a 1
+putd a
+putc b
 HLT
