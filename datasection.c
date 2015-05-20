@@ -75,6 +75,10 @@ void *getStringType(char *buffer, DataEntry *entry) {
 	buffer = buffer + 1;
 	buffer[strlen(buffer)-1] = '\0';
 
+	// Windows line ending fix (ex. "Some Text\r\n")
+	if (buffer[strlen(buffer)-1] == '\r' || buffer[strlen(buffer)-1] == '\n')
+		buffer[strlen(buffer)-1] = '\0';
+
 	processEscapeChars(buffer);
 
 	char *data = (char *)malloc(strlen(buffer)+1);
