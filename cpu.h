@@ -13,6 +13,8 @@ typedef enum {
 	PSH,PSHR,
 	ADD,ADDI,
 	SUB,SUBI,
+	MUL,MULI,
+	DIV,DIVI,
 	POP,POPR,
 	SET,
 	MOV,

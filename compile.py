@@ -3,36 +3,41 @@
 import os
 import sys
 
-instructions = ["PSH", "PSHR", "ADD", "ADDI", "SUB", "SUBI", "POP", "POPR", 
+instructions = ["PSH", "PSHR", "ADD", "ADDI", "SUB", "SUBI", "MUL", "MULI", "DIV", "DIVI",
+				"POP", "POPR", 
 				"SET", "MOV", "LOG", "PUTC", "PUTD", "PUTS", 
 				"JMP", "JNZ", "JLT", "JGT", "JRE", "LDA", "HLT"]
 registers = ["A", "B", "C", "D", "E", "F", "S0", "S1", "S2", "IP", "SP", "LR"]
 
 instructionInfo = {
-"PSH": {"argc": 1,"regs": False},
-"PSHR":{"argc": 1,"regs": True},
-"ADD": {"argc": 0,"regs": False},
-"ADDI":{"argc": 2,"regs": True},
-"SUB": {"argc": 0,"regs": False},
-"SUBI":{"argc": 2,"regs": True},
-"POP": {"argc": 0,"regs": False},
-"POPR":{"argc": 1,"regs": True},	
-"SET": {"argc": 2,"regs": True},
-"MOV": {"argc": 2,"regs": True},
-"LOG": {"argc": 1,"regs": True},
-"PUTC":{"argc": 1,"regs": True},
-"PUTD":{"argc": 1,"regs": True},
-"PUTS":{"argc": 1,"regs": True},
-"JMP": {"argc": 1,"regs": False},
-"JNZ": {"argc": 2,"regs": True},
-"JLT": {"argc": 3,"regs": True},
-"JGT": {"argc": 3,"regs": True},
-"JRE": {"argc": 3,"regs": True},
-"LDA": {"argc": 2,"regs": True},
-"HLT": {"argc": 0,"regs": False},
+"PSH":  {"argc": 1,"regs": False},
+"PSHR": {"argc": 1,"regs": True},
+"ADD":  {"argc": 0,"regs": False},
+"ADDI": {"argc": 2,"regs": True},
+"SUB":  {"argc": 0,"regs": False},
+"SUBI": {"argc": 2,"regs": True},
+"MUL":  {"argc": 0,"regs": False},
+"MULI": {"argc": 2,"regs": True},
+"DIV":  {"argc": 0,"regs": False},
+"DIVI": {"argc": 2,"regs": True},
+"POP":  {"argc": 0,"regs": False},
+"POPR": {"argc": 1,"regs": True},	
+"SET":  {"argc": 2,"regs": True},
+"MOV":  {"argc": 2,"regs": True},
+"LOG":  {"argc": 1,"regs": True},
+"PUTC": {"argc": 1,"regs": True},
+"PUTD": {"argc": 1,"regs": True},
+"PUTS": {"argc": 1,"regs": True},
+"JMP":  {"argc": 1,"regs": False},
+"JNZ":  {"argc": 2,"regs": True},
+"JLT":  {"argc": 3,"regs": True},
+"JGT":  {"argc": 3,"regs": True},
+"JRE":  {"argc": 3,"regs": True},
+"LDA":  {"argc": 2,"regs": True},
+"HLT":  {"argc": 0,"regs": False},
 }
 
-mixedInstructions = ["SET", "JNZ", "ADDI", "SUBI"]
+mixedInstructions = ["SET", "JNZ", "ADDI", "SUBI", "MULI", "DIVI"]
 tripleInstructions = ["JLT", "JGT", "JRE"]
 
 dataTypes = ["INT", "STRING"]
