@@ -1,38 +1,11 @@
-====
-string hello "Hello, World\n"
-string other "Winter is coming!"
-int array {1, 2, 3, 4, 5}
-====
-
-LDA A hello
-LDA B other
-PUTS A
-PUTS B
-JMP PrtHello
-JMP PrtHello
+set a 1
+set b 10
+putd a
+putc b
+srl a 2
+putd a
+putc b
+srr a 1
+putd a
+putc b
 HLT
-
-PrtHello:
-PSH 10  ; \n
-PSH 33  ; !
-PSH 100 ; d
-PSH 108 ; l
-PSH 114 ; r
-PSH 111 ; o
-PSH 87  ; W
-PSH 32  ; ' '
-PSH 111 ; o
-PSH 108 ; l
-PSH 108 ; l
-PSH 101 ; e
-PSH 72  ; H
-
-SET B 13 ; Loop 13 times (i)
-MOV C LR ; Store the LR
-Loop: 
-	POPR A
-	PUTC A
-	SUBI B 1 ; i--
-	JNZ B Loop
-MOV LR C ; Restore LR
-MOV IP LR

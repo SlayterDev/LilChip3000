@@ -74,6 +74,28 @@ void eval(int instr) {
 			registers[reg] -= program[++ip];
 			break;
 		}
+		case MUL: {
+			int a = stack[sp--];
+			int b = stack[sp--];
+			stack[++sp] = a * b;
+			break;
+		}
+		case MULI: {
+			int reg = program[++ip];
+			registers[reg] *= program[++ip];
+			break;
+		}
+		case DIV: {
+			int a = stack[sp--];
+			int b = stack[sp--];
+			stack[++sp] = a / b;
+			break;
+		}
+		case DIVI: {
+			int reg = program[++ip];
+			registers[reg] /= program[++ip];
+			break;
+		}
 		case SET: {
 			int reg = program[++ip];
 			registers[reg] = program[++ip];;
@@ -83,6 +105,16 @@ void eval(int instr) {
 			int dest = program[++ip];
 			int src = program[++ip];
 			registers[dest] = registers[src];
+			break;
+		}
+		case SRL: {
+			int reg = program[++ip];
+			registers[reg] <<= program[++ip];
+			break;
+		}
+		case SRR: {
+			int reg = program[++ip];
+			registers[reg] >>= program[++ip];
 			break;
 		}
 		case LOG: {
