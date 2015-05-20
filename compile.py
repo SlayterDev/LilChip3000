@@ -314,8 +314,9 @@ def compile():
 
 	outputFile = open(outputName, 'w')
 
-	for i in range(0, size+1):
-		outputFile.write("%s\n" % sections[i])
+	if present:
+		for i in range(0, size+1):
+			outputFile.write("%s\n" % sections[i])
 
 	for item in compiledCode:
 		outputFile.write("%s " % item)

@@ -3,6 +3,6 @@
 
 #include "globals.h"
 
-void parseDataSection(FILE *f);
+bool parseDataSection(FILE *f);
 
 #endif

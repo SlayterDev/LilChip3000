@@ -110,7 +110,7 @@ void dumpDataSection() {
 	}
 }
 
-void parseDataSection(FILE *f) {
+bool parseDataSection(FILE *f) {
 	char buffer[1024];
 	fgets(buffer, 1024, f);
 
@@ -123,8 +123,9 @@ void parseDataSection(FILE *f) {
 			break;
 		}
 	}
-	if (!match)
-		return;
+	if (!match) {
+		return false;
+	}
 
 	do {
 		memset(buffer, 0, 1024); // clear the buffer
@@ -182,4 +183,6 @@ void parseDataSection(FILE *f) {
 	} while (strcmp(buffer, "===="));
 	
 	//dumpDataSection();
+
+	return true;
 }

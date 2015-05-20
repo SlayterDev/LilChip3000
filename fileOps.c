@@ -8,7 +8,10 @@ int *readProgram(char *filename) {
 		exit(1);
 	}
 
-	parseDataSection(f);
+	if (!parseDataSection(f)) {
+		rewind(f);
+	}
+
 
 	int pos = ftell(f);
 
@@ -17,7 +20,6 @@ int *readProgram(char *filename) {
 		count++;
 
 	int *code = (int *)malloc(sizeof(int)*count);
-	//rewind(f);
 	fseek(f, pos, SEEK_SET);
 	count = 0;
 	while (fscanf(f, "%d", &input) != EOF) {
